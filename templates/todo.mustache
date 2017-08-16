@@ -1,0 +1,42 @@
+<!doctype html>
+<html>
+  <head>
+  </head>
+
+  <body>
+    <header>
+      <h1>Tasks</h1>
+    </header>
+
+    <!-- To Do Section -->
+    <div class='still-todo'>
+      <h2>To Do:</h2>
+
+      <!-- Success message -->
+      {{ #success }}
+        <p>Task added</p>
+      {{ /success }}
+      {{ ^success }}
+        <p>Please add task</p>
+      {{ /success }}
+
+      <!-- TASK FORM -->
+      <form method='post' action='/'>
+        <label for='todo'></label>
+        <input type='text' id='todo' name='task' placeholder='Add task'>
+
+        <input type='submit' value='Add'>
+      </form>
+
+      <!-- DISPLAY TASKS TO BE DONE -->
+      <ul>
+        {{ #honeyDo }}
+        <li>
+          {{ task }}
+        </li>
+        {{ /honeyDo }}
+      </ul>
+    </div>
+
+  </body>
+</html>
