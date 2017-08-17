@@ -16,15 +16,12 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 // create array for tasks on todo liste
 const todo = [
-  { task: 'walk dog' },
-  { task: 'do laundry' },
-  { task: 'cook meatballs' }
+  // { task: 'walk dog', Completed: false, id:1 },
+  // { task: 'do laundry', Completed: false, id:2 },
+  // { task: 'cook meatballs', Completed: true, id:3 }
 ];
 
-// create array for completed tasks
-const done = [
-  { task: 'eat lunch' }
-];
+let counter = 0;
 
 // display to do list
 app.get('/', function (req, res) {
@@ -35,22 +32,36 @@ app.get('/', function (req, res) {
 
 // receive new tasks (form info)
 app.post('/', function (req, res) {
-  if (
-    req.body.task.length != 0
-  ) {
+  counter += 1
     todo.push({
-      task: req.body.task
+      task: req.body.task,
+      Completed: false,
+      id: counter
     })
-  }
+    // render new task item
+    res.render('todo', {
+      success: true,
+      honeyDo: todo
+    });
+});
 
-  // render new task item
-  res.render('todo', {
-    honeyDo: todo,
-    success: true
-  })
+// send post request to server to update array
+app.post('/:id', function (req, res) {
+  console.log(req.params.id);
+
+  for (let i = 0; i < todo.length; i++) {
+    console.log("todo index");
+    console.log(todo[i].id);
+    if (parseFloat(todo[i].id) === parseFloat(req.params.id)) {
+      console.log('that just happened');
+      todo[i].Completed = true;
+    }
+    console.log("new todo index");
+    console.log(todo[i].Completed);
+  }
 });
 
 // create server
 app.listen(3003, function () { // 1024 and below are off limits
-  console.log('HOT NOW');
+  console.log("It's fine, everything is fine");
 });

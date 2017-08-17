@@ -31,9 +31,30 @@
       <!-- DISPLAY TASKS TO BE DONE -->
       <ul>
         {{ #honeyDo }}
+        {{ ^Completed }}
         <li>
-          {{ task }}
+          <form method='post' action='/{{id}}'>
+            <input type='submit' value='Completed'>
+            {{ task }}
+          </form>
         </li>
+        {{ /Completed }}
+        {{ /honeyDo }}
+      </ul>
+    </div>
+
+    <!-- COMPLETED TASKS -->
+    <div class='done'>
+      <h2>Completed:</h2>
+
+      <!-- DISPLAY COMPLETED TASKS -->
+      <ul>
+        {{ #honeyDo }}
+        {{ #Completed }}
+          <li>
+            {{ task }}
+          </li>
+        {{ /Completed }}
         {{ /honeyDo }}
       </ul>
     </div>
